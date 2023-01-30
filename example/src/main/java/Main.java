@@ -8,6 +8,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Main {
 	public static void main(String[] args) {
+		Credentials credentials = new Credentials();
+		
+		System.setProperty(credentials.getDriverName(), credentials.getDriverPath());
+
 		WebDriver driver = new ChromeDriver();
 		driver.get("https://admin.codingninjas.com/users/sign_in");
 
@@ -17,7 +21,7 @@ public class Main {
 		driver.findElements(By.className("login_link")).get(1).click();
 
 		WebElement email = driver.findElement(By.cssSelector("input[type='email']"));
-		email.sendKeys(args[0]);
+		email.sendKeys(credentials.getEmail());
 
 		List<WebElement> findElements = driver.findElements(By.tagName("button"));
 		for (int i = 0; i < findElements.size(); i++) {
@@ -28,7 +32,7 @@ public class Main {
 		driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
 
 		WebElement pwd = driver.findElement(By.id("password")).findElement(By.tagName("input"));
-		pwd.sendKeys(args[1]);
+		pwd.sendKeys(credentials.getPassword());
 
 		driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
 
